@@ -1,9 +1,9 @@
 <project default="build_all">
-	
+
 	<target name="create_zip">
-		<zip destfile="../Translit.zip" basedir="${basedir}" excludes=".*,snapshots/**"/>
+		<zip destfile="../Translit.zip" basedir="${basedir}" excludes=".*,res**"/>
 	</target>
-	
+
 	<target name="build_all" depends="create_zip">
 	</target>
 </project>
