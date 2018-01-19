@@ -94,13 +94,18 @@ LAT['Ja'] = 'Я';
 LAT['JA'] = 'Я';
 LAT['Ya'] = 'Я';
 LAT['YA'] = 'Я';
-LAT[' '] = ' ';
+
+LAT2 = {};
+for(key in LAT){
+	LAT2[key] = LAT[key];
+	LAT2[key + ' '] = LAT[key];
+}
 // reverse mapping
 CYR = [{},{},{},{}]
-for(key in LAT){
+for(key in LAT2){
 	for(var k in CYR){
-		if(!CYR[k][LAT[key]]){
-			CYR[k][LAT[key]] = key;
+		if(!CYR[k][LAT2[key]]){
+			CYR[k][LAT2[key]] = key;
 		}
 	}
 }

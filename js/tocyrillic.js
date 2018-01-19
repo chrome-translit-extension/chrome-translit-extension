@@ -16,14 +16,16 @@ var globalToggleEnabled = false;
 var globalToggleMode = false;
 // set globals from properties
 function acceptProperties(properties){
-	if(properties[PROPERTY_BUTTON] && KEY_CODES[properties[PROPERTY_BUTTON]]){
-		toggleKeyCode = KEY_CODES[properties[PROPERTY_BUTTON]];
+	if(properties){
+		if(properties[PROPERTY_BUTTON] && KEY_CODES[properties[PROPERTY_BUTTON]]){
+			toggleKeyCode = KEY_CODES[properties[PROPERTY_BUTTON]];
+		}
+		globalToggleEnabled = properties[PROPERTY_GLOBAL] == "true";
+		globalToggleMode = properties[PROPERTY_GLOBAL_MODE] == "true";
 	}
-	globalToggleEnabled = properties[PROPERTY_GLOBAL] == "true";
-	globalToggleMode = properties[PROPERTY_GLOBAL_MODE] == "true";
 }
 // since we heaven't access to localStorage, we'll get properties by message passing
-chrome.extension.sendRequest({"action": "getProperties"}, function(response) { 
+chrome.extension.sendRequest({"action": "getProperties"}, function(response) {
 	acceptProperties(response);
 	if(globalToggleEnabled && globalToggleMode){
 		showMessage("Global cyrillic mode enabled");
@@ -128,7 +130,7 @@ function toCyrillic(input){
 		if(isRich){
 			selectionNode.nodeValue = newTxt;
 			//if(offset > 0){// set new caret position
-				if(isRich){// in rich text we'll create new range 
+				if(isRich){// in rich text we'll create new range
 					var newRange = doc.createRange();
 					newRange.setStart(selectionNode, newCursorPos);
 					newRange.setEnd(selectionNode, newCursorPos);
@@ -141,7 +143,7 @@ function toCyrillic(input){
 			input.value = newTxt;
 			input.selectionEnd = newCursorPos;
 		}
-		
+
 	}
 }
 
@@ -171,7 +173,7 @@ function keyDownListener(e){
 			input.setAttribute(PREV_BORDER_ATTR, input.style.border);
 			input.style.border = TOGGLE_BORDER_STYLE;
 		}
-		// prevents key up listener 
+		// prevents key up listener
 		input.previous_value = getElementValue(input);
 	}
 	else if(toggleMode && input.previous_value != input.value){
@@ -183,7 +185,7 @@ function keyUpListener(e){
 	// skip non-text elements
 	if(!isTextElement(input)) return;
 	// skip backspace, delete etc.
-	if(e.keyCode < 48) return;
+	if(e.keyCode < 48 && e.keyCode!=32) return;
 	var toggleMode = isCyrillicEnabledForElement(input);
 	var txt = getElementValue(input);
 	if(toggleMode && input.previous_value != txt){
@@ -250,7 +252,7 @@ function registerIFrames(){
 	}
 }
 
-console.log("tocyrillic started");
+
 registerGlobalListeners(document);
 // TODO replace timer by on create event if possible
 setTimeout(function(){setInterval(registerIFrames, 2000);}, 2000);
