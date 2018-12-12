@@ -230,13 +230,14 @@ function isRichTextElement(el){
 function registerGlobalListeners(doc){
 	// save registration status on html element
 	// to avoid double listeners
-	var html = doc.getElementsByTagName('html')[0];
-	if(!html.getAttribute(REGISTRED_ATTR)){
-		console.log("document global listeners registered");
-		html.setAttribute(REGISTRED_ATTR, 'true');
-		doc.addEventListener("keydown", keyDownListener, true);
-		doc.addEventListener("keyup", keyUpListener, true);
-	}
+	if (doc) {
+		var html = doc.getElementsByTagName('html')[0];
+		if(!html.getAttribute(REGISTRED_ATTR)){
+			html.setAttribute(REGISTRED_ATTR, 'true');
+			doc.addEventListener("keydown", keyDownListener, true);
+			doc.addEventListener("keyup", keyUpListener, true);
+		}
+}
 }
 // registration of iframes
 function registerIFrames(){
@@ -245,7 +246,6 @@ function registerIFrames(){
 		var iframe = iframes[i];
 		// register each iframe once
 		if(!iframe.getAttribute(REGISTRED_ATTR)){
-			console.log("iframe global listeners registered " + iframe.location);
 			iframe.setAttribute(REGISTRED_ATTR, 'true');
 			registerGlobalListeners(iframe.contentDocument);
 		}
