@@ -94,6 +94,9 @@ LAT['Ja'] = 'Я';
 LAT['JA'] = 'Я';
 LAT['Ya'] = 'Я';
 LAT['YA'] = 'Я';
+LAT['q'] = 'ЛМЛ';
+LAT['Q'] = '֍';
+LAT['Qq'] = '✡';
 
 LAT2 = {};
 for(key in LAT){
