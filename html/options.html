@@ -8,9 +8,9 @@
 <script type="text/javascript">
 // Saves options to localStorage.
 function save_options() {
-  var select = document.getElementById("tocyrillic.button");
+  var select = document.getElementById("kirill.button");
   var button = select.children[select.selectedIndex].value;
-  var global = document.getElementById("tocyrillic.global").checked;
+  var global = document.getElementById("kirill.global").checked;
   // update storage
   localStorage[PROPERTY_BUTTON] = button;
   localStorage[PROPERTY_GLOBAL] = global;
@@ -29,7 +29,7 @@ function save_options() {
 function restore_options() {
   var button = localStorage[PROPERTY_BUTTON];
   if(button){
-    var select = document.getElementById("tocyrillic.button");
+    var select = document.getElementById("kirill.button");
     for (var i = 0; i < select.children.length; i++) {
       var child = select.children[i];
       if (child.value == button) {
@@ -40,7 +40,7 @@ function restore_options() {
   }
   var global = localStorage[PROPERTY_GLOBAL];
   if(global){
-	var globalCheckbox = document.getElementById("tocyrillic.global");
+	var globalCheckbox = document.getElementById("kirill.global");
 	globalCheckbox.checked = true;
   }
 }
@@ -79,13 +79,13 @@ font-size: 1.5 em;
 <img src="/images/icon128.png"/>
 </center>
 
-<h1>ToCyrillic Google Chrome Extension Setup</h1>
+<h1>Kirill Google Chrome Extension Setup for Transliteration</h1>
 
 <table class="widgets" cellpadding="10">
 <tr>
 <td>Cyrillic mode toggle key:</td>
 <td>
-<select id="tocyrillic.button">
+<select id="kirill.button">
  <option value="F2">F2</option>
  <option value="F3">F3</option>
  <option value="F4">F4</option>
@@ -99,7 +99,7 @@ font-size: 1.5 em;
 <tr>
 <td>Toggle cyrillic mode globally</td>
 <td>
-<input type="checkbox" id="tocyrillic.global" />
+<input type="checkbox" id="kirill.global" />
 </td> 
 </tr>
 <tr><td colspan="2">

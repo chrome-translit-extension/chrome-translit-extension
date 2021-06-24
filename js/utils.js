@@ -1,9 +1,9 @@
 function createResponse(action){
 	return {
 		"action": action,
-		"tocyrillic.button": localStorage["tocyrillic.button"],
-        "tocyrillic.global": localStorage["tocyrillic.global"],
-        "tocyrillic.global.mode": localStorage["tocyrillic.global.mode"]
+		"kirill.button": localStorage["kirill.button"],
+        "kirill.global": localStorage["kirill.global"],
+        "kirill.global.mode": localStorage["kirill.global.mode"]
     };
 }
 function sendRequestToAllTabs(request){

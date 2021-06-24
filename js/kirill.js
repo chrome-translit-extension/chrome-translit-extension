@@ -83,7 +83,7 @@ function showMessage(message){
 	messageHideTimer = setTimeout(function() {messageElement.style.display = 'none';}, 1500);
 }
 // main function for translit -> cyrillic convert
-function toCyrillic(input){
+function kirill(input){
 	var doc = input.ownerDocument;
 	var isRich = isRichTextElement(input);
 	var cursorPos = 0;
@@ -189,7 +189,7 @@ function keyUpListener(e){
 	var toggleMode = isCyrillicEnabledForElement(input);
 	var txt = getElementValue(input);
 	if(toggleMode && input.previous_value != txt){
-		toCyrillic(input);
+		kirill(input);
 		input.previous_value = getElementValue(input);
 	}
 }
