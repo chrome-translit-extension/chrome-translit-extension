@@ -1,19 +1,28 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Translit",
-  "version": "8",
+  "version": "9",
   "description": "__MSG_description__",
   "default_locale": "en",
-  "icons": {"16":"images/icon.png",
-	        "48":"images/icon48.png"},
+  "icons": {
+    "16": "images/icon.png",
+    "48": "images/icon48.png"
+  },
   "options_page": "html/options.html",
-
-  "content_scripts": [ {
-    "matches": [ "http://*/*","https://*/*" ],
-    "all_frames": true,
-    "run_at": "document_end",
-    "js": [ "js/constants.js", "js/data.js", "js/kirill.js" ]
-  } ],
-  "permissions": []
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "all_frames": true,
+      "run_at": "document_end",
+      "js": ["js/constants.js", "js/data.js", "js/kirill.js"]
+    }
+  ],
+  "permissions": [],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "action": {
+    "default_icon": {
+      "16": "images/icon.png",
+      "48": "images/icon48.png"
+    }
+  }
 }
-

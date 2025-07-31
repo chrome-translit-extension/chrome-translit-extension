@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "zip": "zip -r ../Translit.zip . -x '.*' -x 'res*' -x 'node_modules/*'",
+    "build": "npm run create-zip"
+  },
+  "devDependencies": {
+    "zip-cli": "^2.0.0"
+  }
+}
