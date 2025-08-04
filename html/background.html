@@ -1,27 +1,7 @@
 <html>
-<head>
-<script src="/js/constants.js" type="text/javascript"></script>
-<script src="/js/utils.js" type="text/javascript"></script>
-<script type="text/javascript">
-function createResponse(action){
-	var response = {"action": action};
-	response[PROPERTY_BUTTON] = localStorage[PROPERTY_BUTTON];
-	response[PROPERTY_GLOBAL] = localStorage[PROPERTY_GLOBAL];
-    response[PROPERTY_GLOBAL_MODE] = localStorage[PROPERTY_GLOBAL_MODE];
-    return response;
-}
-// send localStorage properties to requester
-chrome.extension.onRequest.addListener(	function(request, sender, sendResponse) {
-	// return all properties
-	if(request.action == "getProperties"){
-		sendResponse(createResponse());
-	}
-	// accept global toggle mode and propagete it to all windows all tabs
-	else if(request.action == "propagateGlobalToggleMode"){
-		localStorage[PROPERTY_GLOBAL_MODE] = request[PROPERTY_GLOBAL_MODE];
-		sendRequestToAllTabs(createResponse("setProperties"));
-	}
-});
-</script>
-</head>
+  <head>
+    <script src="/js/constants.js" type="text/javascript"></script>
+    <script src="/js/utils.js" type="text/javascript"></script>
+    <script src="/js/background.js" type="text/javascript"></script>
+  </head>
 </html>

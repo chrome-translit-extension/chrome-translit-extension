@@ -1,124 +1,76 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
-<title>Translit Google Chrome Extension Setup</title>
-<script src="/js/constants.js" type="text/javascript"></script>
-<script src="/js/data.js" type="text/javascript"></script>
-<script src="/js/utils.js" type="text/javascript"></script>
-<script type="text/javascript">
-// Saves options to localStorage.
-function save_options() {
-  var select = document.getElementById("kirill.button");
-  var button = select.children[select.selectedIndex].value;
-  var global = document.getElementById("kirill.global").checked;
-  // update storage
-  localStorage[PROPERTY_BUTTON] = button;
-  localStorage[PROPERTY_GLOBAL] = global;
-  if(!global){
-	  localStorage[PROPERTY_GLOBAL_MODE] = false;
-  }
-  // propagate properties
-  sendRequestToAllTabs(createResponse("setProperties"));
-  // Update status to let user know options were saved.
-  var status = document.getElementById("status");
-  status.innerHTML = "Options saved";
-  setTimeout(function() {status.innerHTML = "";}, 1000);
-}
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Translit Google Chrome Extension Setup</title>
+    <script src="/js/constants.js" type="text/javascript"></script>
+    <script src="/js/data.js" type="text/javascript"></script>
+    <script src="/js/utils.js" type="text/javascript"></script>
+    <script src="/js/options.js" type="text/javascript"></script>
 
-// Restores select box state to saved value from localStorage.
-function restore_options() {
-  var button = localStorage[PROPERTY_BUTTON];
-  if(button){
-    var select = document.getElementById("kirill.button");
-    for (var i = 0; i < select.children.length; i++) {
-      var child = select.children[i];
-      if (child.value == button) {
-        child.selected = true;
-        break;
+    <style>
+      body {
+        font: 14px arial, sans-serif;
+        margin: 1em auto;
+        width: 600;
       }
-    }
-  }
-  var global = localStorage[PROPERTY_GLOBAL];
-  if(global){
-	var globalCheckbox = document.getElementById("kirill.global");
-	globalCheckbox.checked = true;
-  }
-}
-function init(){
-	restore_options();
-	var t = document.getElementById("conversionTable");
-	t.innerHTML = '<table>';
-	for(var k in LAT){
-		t.innerHTML += "<tr><th>" + LAT[k] + "</th><td>&nbsp;" + k + "</td></tr>";
-	}	
-	t.innerHTML += "</table>";
-}
-</script>
-<style>
-body{
-font: 14px arial,sans-serif;
-margin: 1em auto;
-width: 600;
-}
-table.widgets{
-margin: 1em auto;
-}
-#conversionTable{
--webkit-column-count: 10;
-}
-code{
-font-weight: bold;
-font-size: 1.5 em;
-}
-</style>
-</head>
+      table.widgets {
+        margin: 1em auto;
+      }
+      #conversionTable {
+        -webkit-column-count: 10;
+      }
+      code {
+        font-weight: bold;
+        font-size: 1.5 em;
+      }
+    </style>
+  </head>
 
-<body onload="init()">
+  <body onload="init()">
+    <center>
+      <img src="/images/icon128.png" />
+    </center>
 
-<center>
-<img src="/images/icon128.png"/>
-</center>
+    <h1>Kirill Google Chrome Extension Setup for Transliteration</h1>
 
-<h1>Kirill Google Chrome Extension Setup for Transliteration</h1>
+    <table class="widgets" cellpadding="10">
+      <tr>
+        <td>Cyrillic mode toggle key:</td>
+        <td>
+          <select id="kirill.button">
+            <option value="F2">F2</option>
+            <option value="F3">F3</option>
+            <option value="F4">F4</option>
+            <option value="F7">F7</option>
+            <option value="F8">F8</option>
+            <option value="F9">F9</option>
+            <option value="F10">F10</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Toggle cyrillic mode globally</td>
+        <td>
+          <input type="checkbox" id="kirill.global" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button onclick="save_options()">Save</button>
+          &nbsp;&nbsp;
+          <span id="status" style="color: gray"></span>
+        </td>
+      </tr>
+    </table>
 
-<table class="widgets" cellpadding="10">
-<tr>
-<td>Cyrillic mode toggle key:</td>
-<td>
-<select id="kirill.button">
- <option value="F2">F2</option>
- <option value="F3">F3</option>
- <option value="F4">F4</option>
- <option value="F7">F7</option>
- <option value="F8">F8</option>
- <option value="F9">F9</option>
- <option value="F10">F10</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>Toggle cyrillic mode globally</td>
-<td>
-<input type="checkbox" id="kirill.global" />
-</td> 
-</tr>
-<tr><td colspan="2">
-<button onclick="save_options()">Save</button>
-&nbsp;&nbsp;
-<span id="status" style="color:gray"></span>
-</td></tr>
-</table>
+    <h2>Conversion Rules</h2>
+    <div id="conversionTable"></div>
 
-<h2>Conversion Rules</h2>
-<div id="conversionTable"></div>
-
-<p>
-You can use <code>\</code> character to prevent complex conversion.
-<br/> 
-For example, typing 
-<code>s\h</code> you will get <code>сх</code> and not <code>ш</code> .
-</p>
-
-</body>
+    <p>
+      You can use <code>\</code> character to prevent complex conversion.
+      <br />
+      For example, typing
+      <code>s\h</code> you will get <code>сх</code> and not <code>ш</code> .
+    </p>
+  </body>
 </html>
-
